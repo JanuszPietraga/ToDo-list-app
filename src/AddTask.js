@@ -4,7 +4,7 @@ import firebase from 'firebase'
 class AddTaskForm extends Component {
 
     state = {
-        task: 'foo'
+        task: ''
     };
 
     handleChange = event => {
@@ -16,7 +16,7 @@ class AddTaskForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const uid = firebase.auth().currentUser.uid;
-        firebase.database().ref('/dump/' + uid).push({
+        firebase.database().ref('/tasks/' + uid).push({
             title: this.state.task,
             isDone: false
         });
