@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-
+import firebase from "firebase"
 
 
 class SignUpForm extends Component {
@@ -21,7 +21,7 @@ class SignUpForm extends Component {
         const { email, password, ...other } = this.state;
         event.preventDefault();
 
-        this.props.signUp(
+        firebase.auth().signInWithEmailAndPassword(
             email,
             password,
             other
@@ -56,6 +56,7 @@ class SignUpForm extends Component {
                         />
                     </div>
                     <button >rejestruję</button>
+
 
                 </form>
 

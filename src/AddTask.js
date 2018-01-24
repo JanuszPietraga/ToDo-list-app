@@ -37,6 +37,7 @@ class AddTaskForm extends Component {
                     onChange={this.handleChange}
                 />
                 <button>Add task</button>
+
             </form>
         )
     }

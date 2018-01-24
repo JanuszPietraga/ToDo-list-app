@@ -5,6 +5,7 @@ import ToDoList from "./ToDoList";
 import AddTaskForm from "./AddTask";
 import SignInForms from "./SignInForms";
 import SignUpForm from "./SignUpForm";
+import TaskList from "./TaskList";
 
 class App extends Component {
   render() {
@@ -16,8 +17,10 @@ class App extends Component {
         </header>
           <SignInForms/>
           <SignUpForm/>
-        <ToDoList/>
+          <ToDoList/>
           <AddTaskForm/>
+          <TaskList/>
+
 
       </div>
     );
