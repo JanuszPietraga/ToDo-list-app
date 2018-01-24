@@ -4,6 +4,7 @@ import './App.css';
 import ToDoList from "./ToDoList";
 import AddTaskForm from "./AddTask";
 import SignInForms from "./SignInForms";
+import SignUpForm from "./SignUpForm";
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
           <SignInForms/>
+          <SignUpForm/>
         <ToDoList/>
           <AddTaskForm/>
 

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import firebase from 'firebase'
-
 
 class SignInForms extends Component {
 
@@ -54,3 +52,4 @@ class SignInForms extends Component {
 }
 
 export default SignInForms
+
