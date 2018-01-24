@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 
+import firebase from "firebase"
+
+
+
 class SignInForms extends Component {
 
     state = {
@@ -17,7 +21,7 @@ class SignInForms extends Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        this.props.signIn(
+        firebase.auth().signInWithEmailAndPassword(
             this.state.email,
             this.state.password
         ).catch(
