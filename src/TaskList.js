@@ -58,6 +58,7 @@ class TaskList extends Component {
                         this.state.tasks.map(
                             task => (
                                 <li key={task.id}>
+                                    <input type="checkbox"/>
                                     {
                                         task.isDone ?
                                             <del>
