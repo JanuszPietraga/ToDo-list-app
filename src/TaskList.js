@@ -10,12 +10,12 @@ class TaskList extends Component {
 
     componentDidMount() {
         const uid = firebase.auth().currentUser.uid;
-        firebase.database().ref('/dump/' + uid).on(
+        firebase.database().ref('/tasks/' + uid).on(
             'value',
             snapshot => {
                 const snapshotValue = snapshot.val();
-                const tasks = Object.entries(snapshotValue).map(
-                    ([ id, name ]) => ({ id, name })
+                const tasks = Object.entries(snapshotValue || {}).map(
+                    ([ id, val ]) => ({ id, ...val })
                 );
 
                 this.setState({
@@ -34,7 +34,7 @@ class TaskList extends Component {
                         this.state.tasks.map(
                             task => (
                                 <li key={task.id}>
-                                    {task.name}
+                                    {task.title}
                                 </li>
                             )
                         )
