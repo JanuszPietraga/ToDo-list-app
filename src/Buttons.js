@@ -8,7 +8,9 @@ class Buttons extends Component {
     handleDeselectAllClick
 
 
-    handleDeleteSelected
+    handleDeleteSelected = () => {
+
+    };
 
 
 
@@ -19,7 +21,10 @@ class Buttons extends Component {
            <div>
                <button>Select all</button>
                <button> Deselect all</button>
-               <button>Delete selected</button>
+               <button onClick={this.handleDeleteSelected}
+               >
+                   Delete selected
+               </button>
 
            </div>
 
