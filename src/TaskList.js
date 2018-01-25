@@ -65,6 +65,7 @@ class TaskList extends Component {
                                                 </del> :
                                         task.title
                                     }
+
                                     <button
                                         data-task-id={task.id}
                                         onClick={this.handleRemoveClick}
