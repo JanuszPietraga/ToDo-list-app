@@ -47,18 +47,39 @@ class TaskList extends Component {
             isDone: !clickedTask.isDone
         })
     };
+    handlecCheckboxChange = event => {
+        const taskId = event.target.dataset.taskId;
+        const taskIdIsSelected = this.state.selectedTaskIds.include(taskId);
 
+        this.setState({
+            selectedTaskIds: taskIdIsSelected ?
+                this.state.selectedTaskIds.filter(
+                    selectedTaskId => selectedTaskId !==taskId
+                ) : this.state.selectedTaskIds.concat(taskId)
+        })
+    };
+    resetCheckboxes = () => {
+        this.setState({
+            selectedTaskIds: []
+        })
+    };
 
     render() {
         return (
             <div>
                 <h1>Tasks</h1>
+                <button onClick={this.resetCheckboxes}>clear</button>
                 <ul>
                     {
                         this.state.tasks.map(
                             task => (
                                 <li key={task.id}>
-                                    <input type="checkbox"/>
+                                    <input
+                                        type="checkbox"
+                                        data-task-id={task.id}
+                                        checked={this.state.selectedTaskIds.includes(task.id)}
+                                        onChange={this.handlecCheckboxChange}
+                                    />
                                     {
                                         task.isDone ?
                                             <del>
