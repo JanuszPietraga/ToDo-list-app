@@ -1,5 +1,4 @@
-
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import firebase from 'firebase'
 
 class TaskList extends Component {
@@ -8,6 +7,7 @@ class TaskList extends Component {
         tasks: []
     };
 
+
     componentDidMount() {
         const uid = firebase.auth().currentUser.uid;
         firebase.database().ref('/tasks/' + uid).on(
@@ -15,7 +15,7 @@ class TaskList extends Component {
             snapshot => {
                 const snapshotValue = snapshot.val();
                 const tasks = Object.entries(snapshotValue || {}).map(
-                    ([ id, val ]) => ({ id, ...val })
+                    ([id, val]) => ({id, ...val})
                 );
 
                 this.setState({
@@ -24,6 +24,30 @@ class TaskList extends Component {
             }
         )
     }
+
+    componentWillUnmount() {
+        const uid = firebase.auth().currentUser.uid;
+        firebase.database().ref('/tasks/' + uid).off()
+    }
+
+    handleRemoveClick = event => {
+        const taskId = event.target.dataset.taskId;
+        const uid = firebase.auth().currentUser.uid;
+        firebase.database().ref('/tasks' + uid + '/' + taskId).remove()
+
+    };
+    handleToggleDoneClick = event => {
+        const taskId = event.target.dataset.taskId;
+        const clickedTask = this.state.tasks.find(task => task.id === taskId);
+        const uid = firebase.auth().currentUser.uid;
+
+        firebase.database().ref(`/tasks/${uid}/${taskId}`).set({
+            id: clickedTask.id,
+            title: clickedTask.title,
+            isDone: !clickedTask.isDone
+        })
+    };
+
 
     render() {
         return (
@@ -34,7 +58,26 @@ class TaskList extends Component {
                         this.state.tasks.map(
                             task => (
                                 <li key={task.id}>
-                                    {task.title}
+                                    {
+                                        task.isDone ?
+                                            <del>
+                                                {task.title}
+                                                </del> :
+                                        task.title
+                                    }
+                                    <button
+                                        data-task-id={task.id}
+                                        onClick={this.handleRemoveClick}
+                                    >
+                                        remove
+                                    </button>
+
+                                    <button
+                                        data-task-id={task.id}
+                                        onClick={this.handleToggleDoneClick}
+                                    >
+                                        toggle done
+                                    </button>
                                 </li>
                             )
                         )
@@ -45,4 +88,4 @@ class TaskList extends Component {
     }
 }
 
-export default TaskList
+    export default TaskList
