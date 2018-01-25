@@ -4,12 +4,23 @@ import firebase from 'firebase'
 class AddTaskForm extends Component {
 
     state = {
-        task: ''
+        task: '',
+
     };
 
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
+        })
+    };
+    handleCheckboxChange = () => {
+        this.setState({
+            importantChecked: !this.state.importantChecked
+        })
+    };
+    handleDoneCheckboxChange = () => {
+        this.setState({
+            doneChecked: !this.state.doneChecked
         })
     };
 
@@ -36,6 +47,14 @@ class AddTaskForm extends Component {
                     value={this.state.task}
                     onChange={this.handleChange}
                 />
+                <label>
+                    <input
+                        type="checkbox"
+                        onChange={this.handleCheckboxChange}
+                        checked={this.state.importantChecked}
+                    /> is important
+                </label>
+
                 <button>Add task</button>
 
             </form>

@@ -33,7 +33,7 @@ class TaskList extends Component {
     handleRemoveClick = event => {
         const taskId = event.target.dataset.taskId;
         const uid = firebase.auth().currentUser.uid;
-        firebase.database().ref('/tasks' + uid + '/' + taskId).remove()
+        firebase.database().ref('/tasks/' + uid + '/' + taskId).remove()
 
     };
     handleToggleDoneClick = event => {
@@ -41,7 +41,7 @@ class TaskList extends Component {
         const clickedTask = this.state.tasks.find(task => task.id === taskId);
         const uid = firebase.auth().currentUser.uid;
 
-        firebase.database().ref(`/tasks/${uid}/${taskId}`).set({
+        firebase.database().ref('/tasks/' +uid + '/' + taskId).set({
             id: clickedTask.id,
             title: clickedTask.title,
             isDone: !clickedTask.isDone
