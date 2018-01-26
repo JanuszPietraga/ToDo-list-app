@@ -47,9 +47,9 @@ class TaskList extends Component {
             isDone: !clickedTask.isDone
         })
     };
-    handlecCheckboxChange = event => {
+    handleCheckboxChange = event => {
         const taskId = event.target.dataset.taskId;
-        const taskIdIsSelected = this.state.selectedTaskIds.include(taskId);
+        const taskIdIsSelected = this.state.selectedTaskIds.includes(taskId);
 
         this.setState({
             selectedTaskIds: taskIdIsSelected ?
@@ -78,7 +78,7 @@ class TaskList extends Component {
                                         type="checkbox"
                                         data-task-id={task.id}
                                         checked={this.state.selectedTaskIds.includes(task.id)}
-                                        onChange={this.handlecCheckboxChange}
+                                        onChange={this.handleCheckboxChange}
                                     />
                                     {
                                         task.isDone ?
