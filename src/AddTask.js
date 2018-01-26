@@ -5,6 +5,7 @@ class AddTaskForm extends Component {
 
     state = {
         task: '',
+        counter: 0,
 
     };
 
@@ -42,6 +43,7 @@ class AddTaskForm extends Component {
             <form
                 onSubmit={this.handleSubmit}
             >
+                <p>{this.state.counter}</p>
                 <input
                     name="task"
                     value={this.state.task}
@@ -55,7 +57,7 @@ class AddTaskForm extends Component {
                     /> is important
                 </label>
 
-                <button>Add task</button>
+                <button onClick={() => this.setState({counter: this.state.counter + 1 })}>Add task</button>
 
             </form>
         )

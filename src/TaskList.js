@@ -4,7 +4,7 @@ import firebase from 'firebase'
 class TaskList extends Component {
 
     state = {
-        tasks: []
+        tasks: [],
     };
 
 
@@ -64,11 +64,13 @@ class TaskList extends Component {
         })
     };
 
+
     render() {
         return (
             <div>
                 <h1>Tasks</h1>
                 <button onClick={this.resetCheckboxes}>clear</button>
+
                 <ul>
                     {
                         this.state.tasks.map(

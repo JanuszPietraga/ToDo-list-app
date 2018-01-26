@@ -8,9 +8,7 @@ class Buttons extends Component {
     handleDeselectAllClick
 
 
-    handleDeleteSelected = () => {
-
-    };
+    handleDeleteSelected = () => {};
 
 
 
