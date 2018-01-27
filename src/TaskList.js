@@ -5,6 +5,7 @@ class TaskList extends Component {
 
     state = {
         tasks: [],
+        selectedTaskIds: []
     };
 
 
@@ -63,14 +64,17 @@ class TaskList extends Component {
             selectedTaskIds: []
         })
     };
+    handleDeleteSelected = () => {
 
+
+    };
 
     render() {
         return (
             <div>
                 <h1>Tasks</h1>
                 <button onClick={this.resetCheckboxes}>clear</button>
-
+                <button onChange={this.handleDeleteSelected}>delete selected</button>
                 <ul>
                     {
                         this.state.tasks.map(

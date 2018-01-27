@@ -8,7 +8,6 @@ import SignUpForm from "./SignUpForm";
 import TaskList from "./TaskList";
 
 import firebase from 'firebase'
-import Buttons from "./Buttons";
 
 class App extends Component {
 
@@ -40,7 +39,6 @@ class App extends Component {
 
                         <ToDoList/>
                         <AddTaskForm/>
-                        <Buttons/>
                          <TaskList/>
                     </div>
                 }
