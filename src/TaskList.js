@@ -64,17 +64,28 @@ class TaskList extends Component {
             selectedTaskIds: []
         })
     };
-    handleDeleteSelected = () => {
+    removeSelectedTasks = () => {
+        const uid = firebase.auth().currentUser.uid;
+        const tasksRef = firebase.database().ref('/tasks/' + uid);
 
+        if (window.confirm('Do you really want to remove those tasks?')) {
+            this.state.selectedTaskIds.forEach(
+                taskId => tasksRef.child(taskId).remove()
+            );
+            this.setState({
+                selectedTaskIds: []
+            })
 
+        }
     };
+
 
     render() {
         return (
             <div>
                 <h1>Tasks</h1>
                 <button onClick={this.resetCheckboxes}>clear</button>
-                <button onChange={this.handleDeleteSelected}>delete selected</button>
+                <button onClick={this.removeSelectedTasks}>remove selected</button>
                 <ul>
                     {
                         this.state.tasks.map(
