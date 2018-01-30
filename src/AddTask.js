@@ -8,7 +8,9 @@ class AddTaskForm extends Component {
         counter: 0,
         description: '',
         status: 'ToDo',
-        createdAta: ''
+        createdAta: new Date().toDateString()
+
+
     };
 
     handleChange = event => {
@@ -27,7 +29,11 @@ class AddTaskForm extends Component {
         });
 
         this.setState(
-            () => ({ task: '', description: ''}),
+            () => ({
+                task: '',
+                description: '',
+                createdAta: new Date().toDateString()
+            }),
 
         )
     };
@@ -52,8 +58,9 @@ class AddTaskForm extends Component {
                 />
                 <input
                     type={'text'}
-                    placeholder="Date (dd/mm/yyyy)"
-                />
+                    value={this.state.createdAta}
+
+            />
 
 
                 <button onClick={() => this.setState({counter: this.state.counter + 1 })}>Add task</button>
