@@ -6,22 +6,14 @@ class AddTaskForm extends Component {
     state = {
         task: '',
         counter: 0,
-
+        description: '',
+        status: 'ToDo',
+        createdAta: ''
     };
 
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value
-        })
-    };
-    handleCheckboxChange = () => {
-        this.setState({
-            importantChecked: !this.state.importantChecked
-        })
-    };
-    handleDoneCheckboxChange = () => {
-        this.setState({
-            doneChecked: !this.state.doneChecked
         })
     };
 
@@ -30,11 +22,13 @@ class AddTaskForm extends Component {
         const uid = firebase.auth().currentUser.uid;
         firebase.database().ref('/tasks/' + uid).push({
             title: this.state.task,
-            isDone: false
+            description: this.state.description,
+
         });
 
         this.setState(
-            () => ({ task: '' })
+            () => ({ task: '', description: ''}),
+
         )
     };
 
@@ -47,15 +41,20 @@ class AddTaskForm extends Component {
                 <input
                     name="task"
                     value={this.state.task}
+                    placeholder={'Title'}
                     onChange={this.handleChange}
                 />
-                <label>
-                    <input
-                        type="checkbox"
-                        onChange={this.handleCheckboxChange}
-                        checked={this.state.importantChecked}
-                    /> is important
-                </label>
+                <textarea
+                    name={'description'}
+                    placeholder={'description'}
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                />
+                <input
+                    type={'text'}
+                    placeholder="Date (dd/mm/yyyy)"
+                />
+
 
                 <button onClick={() => this.setState({counter: this.state.counter + 1 })}>Add task</button>
 
