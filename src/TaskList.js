@@ -107,8 +107,13 @@ class TaskList extends Component {
                                             <del>
                                                 {task.title}
                                                 {' - description: ' + task.description}
+                                                {'/' + task.createdAta}
                                                 </del> :
-                                        task.title + ' - description: ' + task.description
+                                        task.title
+                                            + ' - description: '
+                                            + task.description
+                                            + '/' + task.createdAta
+
                                     }
 
 
