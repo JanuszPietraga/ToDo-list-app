@@ -6,6 +6,7 @@ class TaskList extends Component {
     state = {
         tasks: [],
         selectedTaskIds: []
+
     };
 
 
@@ -42,12 +43,13 @@ class TaskList extends Component {
         const clickedTask = this.state.tasks.find(task => task.id === taskId);
         const uid = firebase.auth().currentUser.uid;
 
-        firebase.database().ref('/tasks/' +uid + '/' + taskId).set({
-            id: clickedTask.id,
+        firebase.database().ref('/tasks/' +uid + '/' + taskId).update({
             title: clickedTask.title,
             isDone: !clickedTask.isDone
         })
     };
+
+
     handleCheckboxChange = event => {
         const taskId = event.target.dataset.taskId;
         const taskIdIsSelected = this.state.selectedTaskIds.includes(taskId);
@@ -86,6 +88,7 @@ class TaskList extends Component {
                 <h1>Tasks</h1>
                 <button onClick={this.resetCheckboxes}>clear</button>
                 <button onClick={this.removeSelectedTasks}>remove selected</button>
+
                 <ul>
                     {
                         this.state.tasks.map(
@@ -97,13 +100,17 @@ class TaskList extends Component {
                                         checked={this.state.selectedTaskIds.includes(task.id)}
                                         onChange={this.handleCheckboxChange}
                                     />
+
                                     {
                                         task.isDone ?
                                             <del>
                                                 {task.title}
+                                                {' - description: ' + task.description}
                                                 </del> :
-                                        task.title
+                                        task.title + ' - description: ' + task.description
                                     }
+
+
 
                                     <button
                                         data-task-id={task.id}

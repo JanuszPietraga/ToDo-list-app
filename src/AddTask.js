@@ -8,7 +8,7 @@ class AddTaskForm extends Component {
         counter: 0,
         description: '',
         status: 'ToDo',
-        createdAta: new Date().toDateString()
+        createdAta: new Date().toDateString(),
 
 
     };
@@ -25,6 +25,8 @@ class AddTaskForm extends Component {
         firebase.database().ref('/tasks/' + uid).push({
             title: this.state.task,
             description: this.state.description,
+            createdAta: new Date().toDateString(),
+            isDone: false
 
         });
 
@@ -51,11 +53,12 @@ class AddTaskForm extends Component {
                     onChange={this.handleChange}
                 />
                 <textarea
-                    name={'description'}
+                    name="description"
                     placeholder={'description'}
                     value={this.state.description}
                     onChange={this.handleChange}
                 />
+
                 <input
                     type={'text'}
                     value={this.state.createdAta}
