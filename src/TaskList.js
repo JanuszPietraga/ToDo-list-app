@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import firebase from 'firebase'
+import EditTaskForm from "./EditTaskForm";
 
 class TaskList extends Component {
 
@@ -111,7 +112,6 @@ class TaskList extends Component {
                                     }
 
 
-
                                     <button
                                         data-task-id={task.id}
                                         onClick={this.handleRemoveClick}
@@ -124,6 +124,14 @@ class TaskList extends Component {
                                         onClick={this.handleToggleDoneClick}
                                     >
                                         toggle done
+                                    </button>
+
+                                    <button
+                                        data-task-id={task.id}
+                                        // onClick={tu funkcja wywolujaca otwieranie
+                                        // formularza z komponentu EditTaskForm}
+                                    >
+                                        edit task
                                     </button>
                                 </li>
                             )
