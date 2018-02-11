@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import firebase from 'firebase'
-import EditTaskForm from "./EditTaskForm";
+import EditTaskFormToggle from "./EditTaskFormToggle";
 
 class TaskList extends Component {
 
@@ -131,13 +131,7 @@ class TaskList extends Component {
                                         toggle done
                                     </button>
 
-                                    <button
-                                        data-task-id={task.id}
-                                        // onClick={tu funkcja wywolujaca otwieranie
-                                        // formularza z komponentu EditTaskForm}
-                                    >
-                                        edit task
-                                    </button>
+                                    <EditTaskFormToggle taskId={task.id} task={task.title} description={task.description}/>
                                 </li>
                             )
                         )

@@ -4,9 +4,11 @@ import firebase from 'firebase'
 class EditTaskForm extends Component {
 
     state = {
-        task: '',
-        description: '',
+        taskId: this.props.taskId,
+        task: this.props.task,
+        description: this.props.description,
         status: 'ToDo'
+
 
 
     };
@@ -20,19 +22,12 @@ class EditTaskForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const uid = firebase.auth().currentUser.uid;
-        firebase.database().ref('/tasks/' + uid).update({
+        firebase.database().ref('/tasks/' + uid + '/' + this.props.taskId).update({
             title: this.state.task,
             description: this.state.description,
 
         });
 
-        this.setState(
-            () => ({
-                task: '',
-                description: '',
-            }),
-
-        )
     };
 
     render() {
