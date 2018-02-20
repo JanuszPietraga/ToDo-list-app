@@ -14,7 +14,10 @@ class EditTaskFormToggle extends Component {
             ) : (
                 <div>
                     <button onClick={this.toggleEdit}>Close edit form</button>
-                    <EditTaskForm taskId={this.props.taskId} task={this.props.task} description={this.props.description} />
+                    <EditTaskForm taskId={this.props.taskId}
+                                  task={this.props.task}
+                                  description={this.props.description}
+                    />
                 </div>
             )
 

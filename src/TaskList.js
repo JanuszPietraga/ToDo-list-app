@@ -6,7 +6,7 @@ class TaskList extends Component {
 
     state = {
         tasks: [],
-        selectedTaskIds: []
+        selectedTaskIds: [],
 
     };
 
@@ -23,6 +23,7 @@ class TaskList extends Component {
 
                 this.setState({
                     tasks
+
                 })
             }
         )
@@ -47,6 +48,16 @@ class TaskList extends Component {
         firebase.database().ref('/tasks/' +uid + '/' + taskId).update({
             title: clickedTask.title,
             isDone: !clickedTask.isDone
+        })
+    };
+    handleInProgressClick = event => {
+        const taskId = event.target.dataset.taskId;
+        const clickedTask = this.state.tasks.find(task => task.id === taskId);
+        const uid = firebase.auth().currentUser.uid;
+
+        firebase.database().ref('/tasks/' +uid + '/' + taskId).update({
+            title: clickedTask.title,
+            inProgress: !clickedTask.inProgress
         })
     };
 
@@ -87,7 +98,7 @@ class TaskList extends Component {
         return (
             <div>
                 <h1>Tasks</h1>
-                <button onClick={this.resetCheckboxes}>clear</button>
+                <button onClick={this.resetCheckboxes } >clear</button>
                 <button onClick={this.removeSelectedTasks}>remove selected</button>
 
                 <ul>
@@ -113,15 +124,23 @@ class TaskList extends Component {
                                             + ' - description: '
                                             + task.description
                                             + '/' + task.createdAta
-
                                     }
+
 
 
                                     <button
                                         data-task-id={task.id}
-                                        onClick={this.handleRemoveClick}
+                                        onClick={(this.handleRemoveClick)}
+
                                     >
                                         remove
+                                    </button>
+                                    <button
+                                        data-task-id={task.id}
+                                        onClick={this.handleInProgressClick}
+
+                                    >
+                                        in progress
                                     </button>
 
                                     <button

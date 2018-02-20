@@ -35,7 +35,8 @@ class AddTaskForm extends Component {
             () => ({
                 task: '',
                 description: '',
-                createdAta: new Date().toDateString()
+                createdAta: new Date().toDateString(),
+
             }),
 
         )
@@ -67,7 +68,9 @@ class AddTaskForm extends Component {
             />
 
 
-                <button onClick={() => this.setState({counter: this.state.counter + 1 })}>Add task</button>
+                <button
+                    onClick={() => this.setState(
+                    {counter: this.state.counter + 1 })}>Add task</button>
 
             </form>
         )
