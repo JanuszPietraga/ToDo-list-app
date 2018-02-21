@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import firebase from 'firebase'
-import EditTaskFormToggle from "./EditTaskFormToggle";
+import EditTaskFormToggle from "./EditTaskFormToggle"
 
 class TaskList extends Component {
 
@@ -50,15 +50,19 @@ class TaskList extends Component {
             isDone: !clickedTask.isDone
         })
     };
-    handleInProgressClick = event => {
+    handleStatusClick = event => {
         const taskId = event.target.dataset.taskId;
         const clickedTask = this.state.tasks.find(task => task.id === taskId);
         const uid = firebase.auth().currentUser.uid;
 
+
         firebase.database().ref('/tasks/' +uid + '/' + taskId).update({
             title: clickedTask.title,
-            inProgress: !clickedTask.inProgress
-        })
+            status: clickedTask.status === 'WAITING' ? 'IN_PROGRESS' : 'DONE'
+        });
+
+
+
     };
 
 
@@ -137,10 +141,10 @@ class TaskList extends Component {
                                     </button>
                                     <button
                                         data-task-id={task.id}
-                                        onClick={this.handleInProgressClick}
+                                        onClick={this.handleStatusClick}
 
                                     >
-                                        in progress
+                                        {task.status}
                                     </button>
 
                                     <button

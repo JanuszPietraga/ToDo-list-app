@@ -27,7 +27,8 @@ class AddTaskForm extends Component {
             title: this.state.task,
             description: this.state.description,
             createdAta: new Date().toDateString(),
-            isDone: false
+            isDone: false,
+            status: 'WAITING'
 
         });
 

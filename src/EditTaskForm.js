@@ -7,7 +7,6 @@ class EditTaskForm extends Component {
         taskId: this.props.taskId,
         task: this.props.task,
         description: this.props.description,
-        status: 'ToDo'
 
 
 
