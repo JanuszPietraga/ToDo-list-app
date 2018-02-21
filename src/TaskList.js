@@ -109,7 +109,7 @@ class TaskList extends Component {
                     {
                         this.state.tasks.map(
                             task => (
-                                <li key={task.id}>
+                                <li className={'status-' + task.status} key={task.id}>
                                     <input
                                         type="checkbox"
                                         data-task-id={task.id}
@@ -118,7 +118,7 @@ class TaskList extends Component {
                                     />
 
                                     {
-                                        task.isDone ?
+                                        task.isDone?
                                             <del>
                                                 {task.title}
                                                 {' - description: ' + task.description}

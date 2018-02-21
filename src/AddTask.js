@@ -8,7 +8,6 @@ class AddTaskForm extends Component {
         task: '',
         counter: 0,
         description: '',
-        status: 'ToDo',
         createdAta: new Date().toDateString(),
 
 

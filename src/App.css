@@ -26,3 +26,14 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+.status-WAITING {
+  color: red;
+}
+.status-DONE {
+  color: green;
+
+
+}
+.status-IN_PROGRESS {
+  color: orange;
+}
