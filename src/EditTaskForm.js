@@ -48,7 +48,7 @@ class EditTaskForm extends Component {
                     onChange={this.handleChange}
                 />
 
-                <button>Submit</button>
+                <button className={'button'}>Submit</button>
             </form>
         )
     }

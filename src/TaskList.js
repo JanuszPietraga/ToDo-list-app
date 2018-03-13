@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import firebase from 'firebase'
 import EditTaskFormToggle from "./EditTaskFormToggle"
 
+
 class TaskList extends Component {
 
     state = {
@@ -40,16 +41,7 @@ class TaskList extends Component {
         firebase.database().ref('/tasks/' + uid + '/' + taskId).remove()
 
     };
-    handleToggleDoneClick = event => {
-        const taskId = event.target.dataset.taskId;
-        const clickedTask = this.state.tasks.find(task => task.id === taskId);
-        const uid = firebase.auth().currentUser.uid;
 
-        firebase.database().ref('/tasks/' +uid + '/' + taskId).update({
-            title: clickedTask.title,
-            isDone: !clickedTask.isDone
-        })
-    };
     handleStatusClick = event => {
         const taskId = event.target.dataset.taskId;
         const clickedTask = this.state.tasks.find(task => task.id === taskId);
@@ -102,9 +94,9 @@ class TaskList extends Component {
         return (
             <div>
                 <h1>Tasks</h1>
-                <button onClick={this.resetCheckboxes } >clear</button>
-                <button onClick={this.removeSelectedTasks}>remove selected</button>
 
+                <button  className={'button'} onClick={this.resetCheckboxes } >clear</button>
+                <button  className={'button'} onClick={this.removeSelectedTasks}>remove selected</button>
                 <ul>
                     {
                         this.state.tasks.map(
@@ -118,28 +110,24 @@ class TaskList extends Component {
                                     />
 
                                     {
-                                        task.isDone?
-                                            <del>
-                                                {task.title}
-                                                {' - description: ' + task.description}
-                                                {'/' + task.createdAta}
-                                                </del> :
+
+
                                         task.title
-                                            + ' - description: '
-                                            + task.description
-                                            + '/' + task.createdAta
+                                           // + ' - description: '
+                                          //  + task.description
+                                            + ' /  ' + task.createdAta
                                     }
 
 
 
-                                    <button
+                                    <button className={' button button1'}
                                         data-task-id={task.id}
                                         onClick={(this.handleRemoveClick)}
 
                                     >
                                         remove
                                     </button>
-                                    <button
+                                    <button className={'button button2'}
                                         data-task-id={task.id}
                                         onClick={this.handleStatusClick}
 
@@ -147,19 +135,18 @@ class TaskList extends Component {
                                         {task.status}
                                     </button>
 
-                                    <button
-                                        data-task-id={task.id}
-                                        onClick={this.handleToggleDoneClick}
-                                    >
-                                        toggle done
-                                    </button>
 
-                                    <EditTaskFormToggle taskId={task.id} task={task.title} description={task.description}/>
+
+                                    <EditTaskFormToggle taskId={task.id}
+                                                        task={task.title}
+                                                        description={task.description}
+                                    />
                                 </li>
                             )
                         )
                     }
                 </ul>
+
             </div>
         )
     }

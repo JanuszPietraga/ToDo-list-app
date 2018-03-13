@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: honeydew;
+  overflow: auto
+
 }
 
 .App-logo {
@@ -9,13 +12,9 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 100px;
   padding: 20px;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
 }
 
 .App-intro {
@@ -26,14 +25,46 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
 .status-WAITING {
   color: red;
 }
+
 .status-DONE {
   color: green;
-
-
+  text-decoration: line-through;
 }
 .status-IN_PROGRESS {
   color: orange;
 }
+.button {
+  margin: 2px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: solid black;
+
+
+}
+.button1:hover {
+  background-color: red;
+  color: white;
+}
+.button2:hover {
+  background-color: green;
+  color: white;
+}
+.button3:hover {
+  background-color: blue;
+  color: white;
+
+}
+
+ul {
+  list-style: none;
+  text-align: left;
+  padding-left: 15%;
+
+}
+
+
+
