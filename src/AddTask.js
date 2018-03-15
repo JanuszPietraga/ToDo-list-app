@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
-import TaskList from "./TaskList";
+
 
 class AddTaskForm extends Component {
 
@@ -30,6 +30,7 @@ class AddTaskForm extends Component {
             status: 'WAITING',
             counter: this.state.counter
 
+
         });
 
         this.setState(
@@ -37,6 +38,7 @@ class AddTaskForm extends Component {
                 task: '',
                 description: '',
                 createdAta: new Date().toDateString(),
+
 
             }),
 
@@ -72,6 +74,8 @@ class AddTaskForm extends Component {
                     {counter: this.state.counter + 1 })}>Add task</button>
 
             </form>
+
+
         )
     }
 }

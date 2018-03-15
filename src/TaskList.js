@@ -3,12 +3,12 @@ import firebase from 'firebase'
 import EditTaskFormToggle from "./EditTaskFormToggle"
 
 
+
 class TaskList extends Component {
 
     state = {
         tasks: [],
         selectedTaskIds: [],
-
     };
 
 
@@ -47,15 +47,18 @@ class TaskList extends Component {
         const clickedTask = this.state.tasks.find(task => task.id === taskId);
         const uid = firebase.auth().currentUser.uid;
 
+        const taskRef =firebase.database().ref('/tasks/' +uid + '/' + taskId)
 
-        firebase.database().ref('/tasks/' +uid + '/' + taskId).update({
+        taskRef.update({
             title: clickedTask.title,
             status: clickedTask.status === 'WAITING' ? 'IN_PROGRESS' : 'DONE'
         });
 
 
 
+
     };
+
 
 
     handleCheckboxChange = event => {
@@ -74,6 +77,7 @@ class TaskList extends Component {
             selectedTaskIds: []
         })
     };
+
     removeSelectedTasks = () => {
         const uid = firebase.auth().currentUser.uid;
         const tasksRef = firebase.database().ref('/tasks/' + uid);
@@ -90,10 +94,17 @@ class TaskList extends Component {
     };
 
 
+
     render() {
+
+
         return (
             <div>
                 <h1>Tasks</h1>
+                <p>
+                    WAITING: {this.state.tasks.filter(task => task.status === 'WAITING').length}
+
+                </p>
 
                 <button  className={'button'} onClick={this.resetCheckboxes } >clear</button>
                 <button  className={'button'} onClick={this.removeSelectedTasks}>remove selected</button>
@@ -116,6 +127,9 @@ class TaskList extends Component {
                                            // + ' - description: '
                                           //  + task.description
                                             + ' /  ' + task.createdAta
+
+
+
                                     }
 
 
@@ -145,7 +159,9 @@ class TaskList extends Component {
                             )
                         )
                     }
+
                 </ul>
+
 
             </div>
         )
