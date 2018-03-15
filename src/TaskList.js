@@ -9,6 +9,7 @@ class TaskList extends Component {
     state = {
         tasks: [],
         selectedTaskIds: [],
+        statusesToDisplay: ['WAITING', 'IN_PROGRESS', 'DONE']
     };
 
 
@@ -92,6 +93,16 @@ class TaskList extends Component {
 
         }
     };
+    renderStatusButton(statusName) {
+        const isVisible = this.state.statusesToDisplay.includes(statusName);
+        return (
+            <button onClick={() => this.setState({
+                statusesToDisplay: isVisible ?
+                    this.state.statusesToDisplay.filter(statusToDisplay => statusToDisplay !== statusName) :
+                    this.state.statusesToDisplay.concat(statusName)
+            })}>{isVisible ? 'hide' : 'show'}</button>
+        )
+    }
 
 
 
@@ -103,12 +114,15 @@ class TaskList extends Component {
                 <h1>Tasks</h1>
                 <p>
                     WAITING: {this.state.tasks.filter(task => task.status === 'WAITING').length}
+                    {this.renderStatusButton('WAITING')}
                 </p>
                 <p>
                     IN PROGRESS: {this.state.tasks.filter(task => task.status === 'IN_PROGRESS').length}
+                    {this.renderStatusButton('IN_PROGRESS')}
                 </p>
                 <p>
                     DONE: {this.state.tasks.filter(task => task.status === 'DONE').length}
+                    {this.renderStatusButton('DONE')}
                 </p>
 
                 <button  className={'button'} onClick={this.resetCheckboxes } >clear</button>
