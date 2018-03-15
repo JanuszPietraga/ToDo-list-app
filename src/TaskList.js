@@ -103,7 +103,12 @@ class TaskList extends Component {
                 <h1>Tasks</h1>
                 <p>
                     WAITING: {this.state.tasks.filter(task => task.status === 'WAITING').length}
-
+                </p>
+                <p>
+                    IN PROGRESS: {this.state.tasks.filter(task => task.status === 'IN_PROGRESS').length}
+                </p>
+                <p>
+                    DONE: {this.state.tasks.filter(task => task.status === 'DONE').length}
                 </p>
 
                 <button  className={'button'} onClick={this.resetCheckboxes } >clear</button>
