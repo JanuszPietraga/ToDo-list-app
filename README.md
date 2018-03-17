@@ -6,11 +6,11 @@
 
 [x]4. edytowanie szczegółów zadania (tytuł, opis, status [czekające, realizowane, gotowe]) z możliwością zmiany statusów tylko w przód (czekające -> realizowane, realizowane -> gotowe)
 
-[]5. obok listy dodać liczniki zadań w poszczególnych statusach
+[x]5. obok listy dodać liczniki zadań w poszczególnych statusach
 
 [x]6. rozróżnianie kolorami zadań w poszczególnych statusach
 
-[]7. ograniczanie widoku tylko do wybranych statusów (jednego bądź wielu)
+[x]7. ograniczanie widoku tylko do wybranych statusów (jednego bądź wielu)
 
 []8. zliczanie ile maksymalnie zadań było w tym samym czasie realizowanych w danym
 dniu

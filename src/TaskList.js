@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import firebase from 'firebase'
 import EditTaskFormToggle from "./EditTaskFormToggle"
+import moment from 'moment'
 
 
 
@@ -96,7 +97,7 @@ class TaskList extends Component {
     renderStatusButton(statusName) {
         const isVisible = this.state.statusesToDisplay.includes(statusName);
         return (
-            <button onClick={() => this.setState({
+            <button className={'button'} onClick={() => this.setState({
                 statusesToDisplay: isVisible ?
                     this.state.statusesToDisplay.filter(statusToDisplay => statusToDisplay !== statusName) :
                     this.state.statusesToDisplay.concat(statusName)
@@ -129,7 +130,9 @@ class TaskList extends Component {
                 <button  className={'button'} onClick={this.removeSelectedTasks}>remove selected</button>
                 <ul>
                     {
-                        this.state.tasks.map(
+                        this.state.tasks.filter(
+                            task => this.state.statusesToDisplay.includes(task.status)
+                        ).map(
                             task => (
                                 <li className={'status-' + task.status} key={task.id}>
                                     <input
@@ -150,7 +153,6 @@ class TaskList extends Component {
 
 
                                     }
-
 
 
                                     <button className={' button button1'}
