@@ -1,9 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import firebase from 'firebase'
 import EditTaskFormToggle from "./EditTaskFormToggle"
 import moment from 'moment'
-
-
 
 class TaskList extends Component {
 
@@ -21,7 +19,7 @@ class TaskList extends Component {
             snapshot => {
                 const snapshotValue = snapshot.val();
                 const tasks = Object.entries(snapshotValue || {}).map(
-                    ([id, val]) => ({id, ...val})
+                    ([id, val]) => ({ id, ...val })
                 );
 
                 this.setState({
@@ -49,18 +47,26 @@ class TaskList extends Component {
         const clickedTask = this.state.tasks.find(task => task.id === taskId);
         const uid = firebase.auth().currentUser.uid;
 
-        const taskRef =firebase.database().ref('/tasks/' +uid + '/' + taskId)
+        const taskRef = firebase.database().ref('/tasks/' + uid + '/' + taskId)
 
         taskRef.update({
             title: clickedTask.title,
-            status: clickedTask.status === 'WAITING' ? 'IN_PROGRESS' : 'DONE'
+            status: clickedTask.status === 'WAITING' ? 'IN_PROGRESS' : 'DONE',
         });
 
-
+        if (clickedTask.status === 'WAITING') {
+            taskRef.update({
+                movedToInProgressAt: moment().format()
+            })
+        }
+        if (clickedTask.status === 'IN_PROGRESS') {
+            taskRef.update({
+                movedToDoneAt: moment().format()
+            })
+        }
 
 
     };
-
 
 
     handleCheckboxChange = event => {
@@ -70,7 +76,7 @@ class TaskList extends Component {
         this.setState({
             selectedTaskIds: taskIdIsSelected ?
                 this.state.selectedTaskIds.filter(
-                    selectedTaskId => selectedTaskId !==taskId
+                    selectedTaskId => selectedTaskId !== taskId
                 ) : this.state.selectedTaskIds.concat(taskId)
         })
     };
@@ -79,7 +85,6 @@ class TaskList extends Component {
             selectedTaskIds: []
         })
     };
-
     removeSelectedTasks = () => {
         const uid = firebase.auth().currentUser.uid;
         const tasksRef = firebase.database().ref('/tasks/' + uid);
@@ -94,17 +99,17 @@ class TaskList extends Component {
 
         }
     };
+
     renderStatusButton(statusName) {
         const isVisible = this.state.statusesToDisplay.includes(statusName);
         return (
-            <button className={'button'} onClick={() => this.setState({
+            <button onClick={() => this.setState({
                 statusesToDisplay: isVisible ?
                     this.state.statusesToDisplay.filter(statusToDisplay => statusToDisplay !== statusName) :
                     this.state.statusesToDisplay.concat(statusName)
             })}>{isVisible ? 'hide' : 'show'}</button>
         )
     }
-
 
 
     render() {
@@ -131,7 +136,6 @@ class TaskList extends Component {
         )
 
 
-
         return (
             <div>
                 <h1>Tasks</h1>
@@ -149,8 +153,9 @@ class TaskList extends Component {
                     {this.renderStatusButton('DONE')}
                 </p>
 
-                <button  className={'button'} onClick={this.resetCheckboxes } >clear</button>
-                <button  className={'button'} onClick={this.removeSelectedTasks}>remove selected</button>
+
+                <button className={'button'} onClick={this.resetCheckboxes}>clear</button>
+                <button className={'button'} onClick={this.removeSelectedTasks}>remove selected</button>
                 <ul>
                     {
                         this.state.tasks.filter(
@@ -169,11 +174,11 @@ class TaskList extends Component {
 
 
                                         task.title
-                                           // + ' - description: '
-                                          //  + task.description
-                                            + ' /  ' + task.createdAta
-
+                                        // + ' - description: '
+                                        //  + task.description
+                                        + ' /  ' + task.createdAt
                                     }
+
                                     {
                                         moment(task.movedToInProgressAt).isBefore(moment().subtract(3, 'day')) && !task.movedToDoneAt && <p>In progress longer than 3 days!</p>
                                     }
@@ -184,20 +189,19 @@ class TaskList extends Component {
 
 
                                     <button className={' button button1'}
-                                        data-task-id={task.id}
-                                        onClick={(this.handleRemoveClick)}
+                                            data-task-id={task.id}
+                                            onClick={(this.handleRemoveClick)}
 
                                     >
                                         remove
                                     </button>
                                     <button className={'button button2'}
-                                        data-task-id={task.id}
-                                        onClick={this.handleStatusClick}
+                                            data-task-id={task.id}
+                                            onClick={this.handleStatusClick}
 
                                     >
                                         {task.status}
                                     </button>
-
 
 
                                     <EditTaskFormToggle taskId={task.id}
@@ -208,13 +212,11 @@ class TaskList extends Component {
                             )
                         )
                     }
-
                 </ul>
-
 
             </div>
         )
     }
 }
 
-    export default TaskList
+export default TaskList
