@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import EditTaskFormToggle from "./EditTaskFormToggle"
 import moment from 'moment'
 
+
 class TaskList extends Component {
 
     state = {
