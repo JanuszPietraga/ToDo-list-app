@@ -108,11 +108,34 @@ class TaskList extends Component {
 
 
     render() {
+        const maxInProgress = this.state.tasks.map(
+            task => ({
+                movedToInProgressAt: task.movedToInProgressAt && moment(task.movedToInProgressAt),
+                movedToDoneAt: task.movedToDoneAt && moment(task.movedToDoneAt)
+            })
+        ).map(
+            (task, index, allTasks) => allTasks.slice(index + 1).filter(
+                nextTask => (
+                    (
+                        task.movedToInProgressAt &&
+                        nextTask.movedToInProgressAt &&
+                        task.movedToInProgressAt.isBefore(nextTask.movedToInProgressAt)
+                    ) && (
+                        !task.movedToDoneAt || task.movedToDoneAt.isAfter(nextTask.movedToInProgressAt)
+                    )
+                )
+            ).length + (task.movedToInProgressAt ? 1 : 0)
+        ).reduce(
+            (max, next) => Math.max(max, next),
+            0
+        )
+
 
 
         return (
             <div>
                 <h1>Tasks</h1>
+                <p>Max in progress: {maxInProgress}</p>
                 <p>
                     WAITING: {this.state.tasks.filter(task => task.status === 'WAITING').length}
                     {this.renderStatusButton('WAITING')}
@@ -150,8 +173,13 @@ class TaskList extends Component {
                                           //  + task.description
                                             + ' /  ' + task.createdAta
 
+                                    }
+                                    {
+                                        moment(task.movedToInProgressAt).isBefore(moment().subtract(3, 'day')) && !task.movedToDoneAt && <p>In progress longer than 3 days!</p>
+                                    }
 
-
+                                    {
+                                        moment(task.createdAt).isBefore(moment().subtract(5, 'day')) && !task.movedToInProgressAt && <p>Waits longer than 5 days!</p>
                                     }
 
 
